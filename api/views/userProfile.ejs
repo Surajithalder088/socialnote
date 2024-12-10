@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>userProfile</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>    <%- include('partials/header') %>
+    <main >
+        <h1>profile</h1>
+        
+                    <h3>name :<%= user.firstname %>  <%= user.lastname %> <%= user._id %></h3>
+                    <p> followers :<%= user.followers.length %></p>
+                <hp> followings :<%= user.followings.length %><p>
+                    
+                    <% if(me.followings.includes(user._id)){
+                        %>
+        
+                        <form action="/follow/api/v1/<%= user._id %>/out"  method="GET">
+                            <button type="submit">Unfollow</button>
+                        </form>
+                        <% } else { %>  <form action="/follow/api/v1/<%= user._id %>/in"  method="GET">
+                            <button type="submit">follow</button>
+                        </form> <% } %>
+                </div>
+    </main>
+    
+</body>
+</html>

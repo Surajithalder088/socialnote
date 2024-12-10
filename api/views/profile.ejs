@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <%- include('partials/header') %>
+    <main>
+    <h1>profile</h1>
+<h1>hii <%= username.firstname %>  <%= username.lastname %></h1> <br>
+<form action="/auth/api/v1/logout" method="POST">
+        
+    <button type="submit">logout</button>
+</form>
+        <h3> followers :<%= username.followers.length %></h3>
+        <h3> followings :<%= username.followings.length %></h3>
+       
+            <% if(username.post.length>0){
+                %><p>Your posts</p><%
+                 (username.post).forEach(p=>{
+                    %> <div class="container"> <h3> <%=p.title %></h3>
+                    <p> <%=p.description %></p>
+                    <small> <%=p.createdAt %></small></div>
+              <%  })
+            }else{ %><h4>you have no posts</h4> <%} %>
+  
+
+
+
+    </main>
+</body>
+</html>
