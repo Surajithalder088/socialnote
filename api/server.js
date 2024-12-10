@@ -26,6 +26,7 @@ const option={
     methods:"GET,POST,PUT,DELETE",
     credentials:true,
 }
+const __dirname=path.resolve()
 
 app.use(express.Router());
 app.use(cookieParser());
@@ -37,6 +38,7 @@ app.use('/post/api/v1',postRoutes);
 app.use('/follow/api/v1',followRoutes);
 }
 app.use('/temp', express.static(path.join(__dirname,"public/temp")))
+
 const posts=[
     {
       id:1,
@@ -124,6 +126,13 @@ app.get('/api/post/:id',async(req,res)=>{
   }
 })
 
+
+if(process.env.NODE_ENV=="production"){
+  app.use(express.static(path.join(__dirname,'../client/dist')))  //serving frontend on same route
+  app.get('*',(req,res)=>{
+    res.sendFile(path.join(__dirname,'../client/dist','index.html'))
+})
+}
 
 const users=[{id:1,name:"raj roy",img:'1.jpg'},{id:2,name:"sarad paul",img:''},
     {id:3,name:"parad paul",img:'1.jpg'},{id:4,name:"narad paul",img:'5.jpg'}
