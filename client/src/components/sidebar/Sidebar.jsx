@@ -6,6 +6,7 @@ import MessageIcon from '@mui/icons-material/Message';
 import GroupsIcon from '@mui/icons-material/Groups';
 import PersonIcon from '@mui/icons-material/Person';
 import CloseFriend from '../closeFriend/CloseFriend';
+import {Link} from 'react-router-dom'
 
 
 const Users=[{id:1,name:"raj roy",img:'6.jpg'},{id:2,name:"sarad paul",img:'2.jpg'},{id:2,name:"sarad paul",img:'2.jpg'},
@@ -30,10 +31,12 @@ const Sidebar = () => {
           <SlideshowIcon className='sidebarIcon'/>
           <span className="sidebarListItemText">Videos</span>
         </li>
+        <Link to={'/messenger'} style={{textDecoration:'none'}} >
         <li className="sidebarListItem">
           <MessageIcon className='sidebarIcon'/>
           <span className="sidebarListItemText">Messages</span>
         </li>
+        </Link>
         <li className="sidebarListItem">
           <GroupsIcon className='sidebarIcon'/>
           <span className="sidebarListItemText">Groups</span>

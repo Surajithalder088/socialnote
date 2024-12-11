@@ -2,6 +2,24 @@
     flex: 3.5;
    
 }
+.rightbarHome{
+    position: fixed;
+    overflow-y: scroll;
+    padding-right: 10px;
+    margin: 0;
+    height: 100vh;
+    list-style: none;
+
+}::-webkit-scrollbar{
+    width: 6px;
+}
+::-webkit-scrollbar-track{
+    background-color: rgb(241, 247, 247);
+
+}
+::-webkit-scrollbar-thumb{
+    background-color: rgb(192, 186, 186);
+}
 .rightbarWrapper{
     padding: 20px 20px 0 0;
     margin-left :2rem ;
@@ -21,6 +39,7 @@
 }
 .rightbarAd{
     width:100%;
+    
     border-radius: 10px;
     margin: 30px 0;
 }
@@ -28,8 +47,11 @@
     margin-bottom: 20px;
 }
 .rightbarFriendList{
-    padding: 0;
+    position: sticky;
+    overflow-y: scroll;
+    padding-right: 10px;
     margin: 0;
+    height: 100vh;
     list-style: none;
 }
 .rightbarFriend{

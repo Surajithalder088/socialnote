@@ -8,6 +8,7 @@ import Register from './pages/register/Register'
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthContext } from './context/AuthContext'
+import Messenger from './pages/messenger/Messenger'
 
 function App() {
  const {user}=useContext(AuthContext)
@@ -23,6 +24,7 @@ function App() {
       <Route path='/login' element={<Login/>}/>
       <Route path='/register' element={<Register/>}/>
       <Route path={`/profile/:id`} element={user?<Profile />:<Login/>}/>
+      <Route  path='/messenger' element={user?<Messenger/>:<Login/>}/>
       <Route path={`/profile`} element={user?<Profile userId={id} />:<Login/>}/>
     </Routes>
    </BrowserRouter>

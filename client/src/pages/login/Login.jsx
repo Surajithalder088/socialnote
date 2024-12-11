@@ -36,7 +36,7 @@ const{user,isFetching,error,dispatch}=useContext(AuthContext)
             <div className="loginRight">
                 <form className="loginBox" onSubmit={handleClick}>
                     <input type="email" placeholder='email' required className="loginInput" ref={email} />
-                    <input type="password"  placeholder='password' required minLength="6" className="loginInput"  ref={password}/>
+                    <input type="password"  placeholder='password' required minLength="4" className="loginInput"  ref={password}/>
                     <button className="loginButton" disabled={isFetching}>
                         {isFetching?<CircularProgress color='white' size='20px' />:"Login"}</button>
                     <span className="loginForgot">Forgot Password?</span>

@@ -8,7 +8,10 @@ import {useNavigate}from'react-router-dom'
 
 
 
-const Users=[{id:1,name:"raj roy",img:'6.jpg'},{id:2,name:"sarad paul",img:'2.jpg'}]
+const Users=[{id:1,name:"raj roy",img:'6.jpg'},{id:2,name:"sarad paul",img:'2.jpg'},
+  {id:2,name:"sarad paul",img:'2.jpg'},{id:2,name:"sarad paul",img:'2.jpg'},{id:2,name:"sarad paul",img:'2.jpg'},
+  {id:2,name:"sarad paul",img:'2.jpg'},{id:2,name:"sarad paul",img:'2.jpg'},{id:2,name:"sarad paul",img:'2.jpg'}
+]
 
 const Rightbar = ({userId}) => {
 
@@ -23,18 +26,21 @@ const Rightbar = ({userId}) => {
 
   const HomeRightbar=()=>{
     return(
-      <>
+      <><div className="rightbarHome">
          <div className="birthdayContainer">
           <img className="birthdayImg" src="/public/birth.jpg" alt=""  />
           <span className="birthdayText"><b>Pola</b> and <b>others 3 </b> have birthday today</span>
         </div>
-        <img  className="rightbarAd" src="/public/adofcadberry.jpg" alt=""  />
+        <p>Check new product</p>
+        <img  className="rightbarAd" 
+        src="http://res.cloudinary.com/dbxx49ers/image/upload/v1733832772/fiflwmgwpgurl02hpghs.jpg"
+         alt=""  />
         <h4 className="rightbarTitle">Online Friends</h4>
         <ul className="rightbarFriendList">
            {Users.map(u=>(
             <Online key={u.id} user={u}/>
            ))} 
-        </ul>
+        </ul></div>
       </>
     )
   }

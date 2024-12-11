@@ -12,6 +12,8 @@ const server=http.createServer(app)
 const authRoutes= require('./routes/auth')
 const postRoutes= require('./routes/post')
 const followRoutes= require('./routes/following')
+const conversationRoutes =require('./routes/conversation')
+const messageRouter=require('./routes/messages')
 const authenticateToken =require("./middlewares/authenticate")
 const Post=require("./model/post")
 
@@ -36,6 +38,8 @@ app.use(express.urlencoded({extended:true}))
 app.use('/auth/api/v1',authRoutes);
 app.use('/post/api/v1',postRoutes);
 app.use('/follow/api/v1',followRoutes);
+app.use('/conversation/api/v1',conversationRoutes)
+app.use('/message/api/v1',messageRouter)
 }
 app.use('/temp', express.static(path.join(__dirname,"public/temp")))
 
