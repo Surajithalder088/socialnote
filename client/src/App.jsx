@@ -11,6 +11,9 @@ import { AuthContext } from './context/AuthContext'
 import Messenger from './pages/messenger/Messenger'
 
 function App() {
+const api=import.meta.env.VITE_TEST;
+console.log(api);
+
  const {user}=useContext(AuthContext)
  let id=null
  if(user!==null){

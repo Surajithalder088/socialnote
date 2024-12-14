@@ -11,13 +11,13 @@ import { AuthContext } from '../../context/AuthContext'
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import CloseIcon from '@mui/icons-material/Close';
-
+import { useNavigate } from 'react-router'
 
 const Profile = () => {
   const {user:currentuser}=useContext(AuthContext)
   const[followed,setFollowed]=useState(false)
   const[followfetch,setFollowfetch]=useState(false)
-
+const navigate=useNavigate();
       const {id}=useParams();
      const userId=id;
   
@@ -56,6 +56,27 @@ const Profile = () => {
     
   }
 
+  const messageHandler=async()=>{
+      const conversationdata={
+         senderId:currentuser.existingUser._id,
+    recieverId:userId
+      }
+      try{
+        const res =await axios.post("http://localhost:7000/conversation/api/v1/",conversationdata)
+      if(res){
+    console.log(res);
+        navigate("/messenger")
+      }
+      }catch(err){
+        console.log(err);
+        
+      }
+      
+
+      
+      
+  }
+
   useEffect(()=>{
   const fetchFollow=async()=>{
     const response= await axios.get(`http://localhost:7000/auth/api/v1/${currentuser.existingUser._id}/profile`,{withCredentials:true})
@@ -63,6 +84,7 @@ const Profile = () => {
    }
    fetchFollow()
   },[userId])
+
   useEffect( ()=>{
     
     const fetchingUser=async()=>{
@@ -98,7 +120,7 @@ const Profile = () => {
                 <h4 className="profileInfoName">{user.name}</h4>
                 <span className="profileInfoDesc"> good human !</span>
             
-
+    <div className="followMessage">
             {currentuser.existingUser._id!==userId &&(
         <button className="rightbarFollowButton" onClick={followHandler}>
        {followed?"Unfollow":"Follow"}
@@ -106,6 +128,13 @@ const Profile = () => {
        
         </button>
       )}
+      {currentuser.existingUser._id!==userId &&(
+        <button className="rightbarFollowButton" onClick={messageHandler}>
+          Message
+             {followed?<CloseIcon/>:<AddIcon/>}
+       
+        </button>
+      )}</div>
       </div>
         </div>
         <div className="profileRightButtom">

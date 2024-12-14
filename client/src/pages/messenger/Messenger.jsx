@@ -1,12 +1,15 @@
 import React, {useState,useEffect, useContext, useRef } from 'react'
 import Topbar from '../../components/topbar/Topbar'
 
+import {io} from "socket.io-client"
 import "./messenger.css"
 import axios from 'axios'
 import Conversations from '../../components/conversations/Conversations'
 import Message from '../../components/message/Message'
 import ChatOnline from '../../components/chatOnline/ChatOnline'
 import { AuthContext } from '../../context/AuthContext'
+
+
 const Messenger = () => {
 
   const {user}=useContext(AuthContext)
@@ -14,7 +17,14 @@ const [conversations,setConversations]=useState([])
 const [currentChat,setCurrentChat]=useState(null)
 const [newMessage,setNewMessage]=useState("")
 const [messages,setMessages]=useState([])
+const[socket,setSocket]=useState(null)
 const scrollRef=useRef()
+
+useEffect(() => {
+  setSocket(io("ws://localhost:8900"))
+}, [])
+
+
 
 useEffect(()=>{
 

@@ -16,7 +16,8 @@ const Users=[{id:1,name:"raj roy",img:'6.jpg'},{id:2,name:"sarad paul",img:'2.jp
 const Rightbar = ({userId}) => {
 
   const [friends,setFriends]=useState([])
- 
+
+  const[allUser,setAllUser]=useState([])
  const {user:currentuser }=useContext(AuthContext)
  const navigate=useNavigate()
 
@@ -25,20 +26,45 @@ const Rightbar = ({userId}) => {
 
 
   const HomeRightbar=()=>{
+   
+    useEffect(() => {
+     const allUsers=async()=>{
+      try{
+         const res=await axios.get("http://localhost:7000/auth/api/v1/people")
+
+      setAllUser(res.data.users)
+      }catch(err){
+        console.log(err);
+        
+      }
+
+     }
+     allUsers()
+    }, [currentuser])
+    
+    const navigator=(id)=>{
+      navigate(`/profile/${id}`)
+    }
     return(
       <><div className="rightbarHome">
+        <div className="ad">
          <div className="birthdayContainer">
           <img className="birthdayImg" src="/public/birth.jpg" alt=""  />
-          <span className="birthdayText"><b>Pola</b> and <b>others 3 </b> have birthday today</span>
+          <span className="birthdayText">Check how many of your friendshas birthday today</span>
         </div>
-        <p>Check new product</p>
+        <h4 className="rightbarTitle">Check new products</h4>
         <img  className="rightbarAd" 
         src="http://res.cloudinary.com/dbxx49ers/image/upload/v1733832772/fiflwmgwpgurl02hpghs.jpg"
          alt=""  />
-        <h4 className="rightbarTitle">Online Friends</h4>
+         </div>
+        <h4 className="rightbarTitle">New users</h4>
         <ul className="rightbarFriendList">
-           {Users.map(u=>(
-            <Online key={u.id} user={u}/>
+           {allUser.map(u=>(
+            <div >
+               <Link to={`/profile/${u._id}`}>
+            <Online key={u._id} user={u}  />
+            </Link>
+            </div>
            ))} 
         </ul></div>
       </>
@@ -102,7 +128,8 @@ const Rightbar = ({userId}) => {
           
         <div className="rightbarFollowing"  style={{cursor:'pointer'}} onClick={()=>{console.log('link click')}}>
           
-          <img src="/public/8.jpg" alt="" className="rightbarFollowingImg" />
+          <img src={friend?.img?friend.img:"/public/profile.png"}
+           alt="" className="rightbarFollowingImg" />
           <span className="rightbarFollowingName">{friend.name}</span>
           <span className="rightbarFollowingName">{friend.email}</span>
        

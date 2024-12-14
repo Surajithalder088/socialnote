@@ -8,8 +8,12 @@ import './home.css'
 
 
 const Home = () => {
+  const api=import.meta.env.VITE_TEST;
+  console.log(api);
+  
   return (
     <>
+ 
     <Topbar/>
     <div className="homeContainer">
       <Sidebar/>

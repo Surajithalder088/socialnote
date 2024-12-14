@@ -43,17 +43,26 @@
 .profileRightButtom{
     display: flex;
 }
+.followMessage{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1;
+    position: relative;
+}
 .rightbarFollowButton{
-    margin-top: 10px;
+   
+    margin: 10px 5px;
     margin-bottom: 10px;
+
     border: none;
     background-color: #1872f2;
     color: white;
     border-radius: 5px;
-    padding: 5px 10px;
+    padding: 5px 8px;
     display: flex;
     align-items: center;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 500;
     cursor: pointer;
 }
