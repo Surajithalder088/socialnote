@@ -1,8 +1,9 @@
 import axios from 'axios'
 import './register.css'
 import { useRef } from 'react'
-
+const api=import.meta.env.VITE_API;
 import {useNavigate}from'react-router-dom'
+import{ Link} from 'react-router-dom'
 
 const Register= () => {
     const name=useRef()
@@ -21,8 +22,13 @@ const Register= () => {
                 password:password.current.value,
             }
             try{
-                const res=await axios.post("http://localhost:7000/auth/api/v1/signup",user)
-               navigate('/login')
+                const res=await axios.post(`${api}/auth/api/v1/signup`,user,{withCredentials:true})
+
+                console.log(res);
+                if(res){
+                     navigate('/login')
+                }
+              
                 
             }catch(error){
             console.log(error);
@@ -46,10 +52,10 @@ const Register= () => {
                     <input type="password"  placeholder='password'required ref={password}className="loginInput" minLength="6"/>   
                     <input type="password"  placeholder='password again'required ref={passwordAgain}className="loginInput" />
                     <button className="loginButton" type='submit'>Sign up</button>
-                    
+                    <Link to={'/login'}>
                     <button className="loginRegisterButton">
                         Log into Account
-                    </button>
+                    </button></Link>
                 </form>
             </div>
         </div>

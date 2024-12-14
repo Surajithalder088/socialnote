@@ -2,7 +2,7 @@ import "./topbar.css"
 import {Search,Person,Chat,Notifications} from '@mui/icons-material'
 import { useContext } from "react"
 import {AuthContext}from "../../context/AuthContext"
-
+const api=import.meta.env.VITE_API;
 import {Link} from 'react-router-dom'
 
 const Topbar = () => {
@@ -28,27 +28,35 @@ const Topbar = () => {
         <div className="topbarRight">
 
           <div className="topbarlinks">
+          <Link to='/' style={{textDecoration:'none',color:"white"}}>
             <span className="topbarLink">Home</span>
-            <span className="topbarLink">Timeline</span>
+            </Link>
+            <Link to='/peoples' style={{textDecoration:'none',color:"white"}}>
+            <span className="topbarLink">Peoples</span>
+            </Link>
+            
           </div>
         <div className="topbarIcons">
+        <Link to='/peoples' style={{textDecoration:'none',color:"white"}}>
             <div className="topbariconItem">
               < Person/>
-              <span className="topbarIconBadge">1</span>
+              <span className="topbarIconBadge">0</span>
             </div>
-            <Link to={'/messenger'} style={{textDecoration:'none'}} >
+          </Link>
+            <Link to={'/messenger'} style={{textDecoration:'none',color:"white"}} >
             <div className="topbariconItem">
               < Chat/>
-              <span className="topbarIconBadge">2</span>
+              <span className="topbarIconBadge">0</span>
             </div></Link>
 
-            <div className="topbariconItem">
+            <div className="topbariconItem" >
+             
               < Notifications/>
-              <span className="topbarIconBadge">1</span>
+              <span className="topbarIconBadge">0</span>
             </div>
         </div>
         <Link to={`/profile/${user.existingUser._id}`}>
-          <img src={user.existingUser.img||"/public/profile.png"} alt="" className="topbarImg" />
+          <img src={user.existingUser.img||"http://res.cloudinary.com/dbxx49ers/image/upload/v1734202452/lml0ghr271z4xxat9ogt.png"} alt="" className="topbarImg" />
         </Link>
         </div>
         

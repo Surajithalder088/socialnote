@@ -1,4 +1,5 @@
 import './profile.css'
+import EditIcon from '@mui/icons-material/Edit';
 import Topbar from '../../components/topbar/Topbar'
 import Sidebar from '../../components/sidebar/Sidebar'
 import Feed from '../../components/feed/Feed'
@@ -9,9 +10,10 @@ import {useParams} from 'react-router'
 import { loginCall } from '../../apiCalls'
 import { AuthContext } from '../../context/AuthContext'
 import AddIcon from '@mui/icons-material/Add';
-import RemoveIcon from '@mui/icons-material/Remove';
+import SmsIcon from '@mui/icons-material/Sms';
 import CloseIcon from '@mui/icons-material/Close';
 import { useNavigate } from 'react-router'
+const api=import.meta.env.VITE_API;
 
 const Profile = () => {
   const {user:currentuser}=useContext(AuthContext)
@@ -37,12 +39,12 @@ const navigate=useNavigate();
     
     try{
       if(followed){
-      const res=await axios.get(`http://localhost:7000/follow/api/v1/${userId}/out`,{withCredentials:true})
+      const res=await axios.get(`${api}/follow/api/v1/${userId}/out`,{withCredentials:true})
      console.log(res);
     // dispatch({type:"UNFOLLOW",payload:userId})
       
      }else{
-       const res=await axios.get(`http://localhost:7000/follow/api/v1/${userId}/in`,{withCredentials:true})
+       const res=await axios.get(`${api}/follow/api/v1/${userId}/in`,{withCredentials:true})
       console.log(res);
      // dispatch({type:"FOLLOW",payload:userId})
      }
@@ -62,7 +64,7 @@ const navigate=useNavigate();
     recieverId:userId
       }
       try{
-        const res =await axios.post("http://localhost:7000/conversation/api/v1/",conversationdata)
+        const res =await axios.post(`${api}/conversation/api/v1/`,conversationdata)
       if(res){
     console.log(res);
         navigate("/messenger")
@@ -79,7 +81,7 @@ const navigate=useNavigate();
 
   useEffect(()=>{
   const fetchFollow=async()=>{
-    const response= await axios.get(`http://localhost:7000/auth/api/v1/${currentuser.existingUser._id}/profile`,{withCredentials:true})
+    const response= await axios.get(`${api}/auth/api/v1/${currentuser.existingUser._id}/profile`,{withCredentials:true})
    setFollowed(response.data.user.followings.includes(userId))
    }
    fetchFollow()
@@ -91,7 +93,7 @@ const navigate=useNavigate();
       console.log(userId);
       
     try{
-      const res= await axios.get(`http://localhost:7000/auth/api/v1/${userId}/profile`,{withCredentials:true})
+      const res= await axios.get(`${api}/auth/api/v1/${userId}/profile`,{withCredentials:true})
       console.log("this is response",res);
       
     setUser(res.data.user)
@@ -113,11 +115,23 @@ const navigate=useNavigate();
       <div className="profileRight">
         <div className="profileRightTop">
             <div className="profileCover">
-                <img  className="profileCoverImg" src={user.img?user.img :"/public/profile.png"} alt=""/>
-                <img  className="profileUserImg" src={user.img?user.img :"/public/profile.png"}alt=""/>
+                <img  className="profileCoverImg"
+                 src={user.img?user.img :"http://res.cloudinary.com/dbxx49ers/image/upload/v1734202452/lml0ghr271z4xxat9ogt.png"} alt=""/>
+
+                <img  className="profileUserImg" src={user.img?user.img :"http://res.cloudinary.com/dbxx49ers/image/upload/v1734202452/lml0ghr271z4xxat9ogt.png"}alt=""/>
+                
             </div>
             <div className="profileInfo">
-                <h4 className="profileInfoName">{user.name}</h4>
+              <div className='profileInfoName'>
+                <h4 className="">{user.name}</h4>
+                {
+                  currentuser.existingUser._id===userId &&(
+                    <EditIcon  className='editIcon'/>
+                  )
+                }
+                
+                
+                </div>
                 <span className="profileInfoDesc"> good human !</span>
             
     <div className="followMessage">
@@ -131,7 +145,7 @@ const navigate=useNavigate();
       {currentuser.existingUser._id!==userId &&(
         <button className="rightbarFollowButton" onClick={messageHandler}>
           Message
-             {followed?<CloseIcon/>:<AddIcon/>}
+             {followed?<SmsIcon/>:<AddIcon/>}
        
         </button>
       )}</div>

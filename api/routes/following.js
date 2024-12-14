@@ -73,6 +73,28 @@ router.get('/followings-posts',authenticateToken,async(req,res)=>{
       
 })
 
+
+router.get('/followings-posts-videos',authenticateToken,async(req,res)=>{
+    try{
+          const me=req.user.id;
+        const followilg= await User.findOne({_id:me},'followings') //getting folling list and my id
+        let List=followilg.followings;
+           //  console.log(followilgList);
+          const followilgList=List.concat(me) // to get all post including my post--list of ids
+          const list=await User.find({_id:{$in:followilgList}}) //list of documents 
+     
+       const posts= await Post.find(
+        {user:{$in:followilgList},photo:{$exists:true,$ne:null,$ne:''},"photo":/mp4$/}
+    ).sort({createdAt:-1}).populate('user') //fetching all posts whome author is in list
+       
+//--------------------getting user document 
+        const user= await User.findOne({_id:me})
+        res.status(200).json({posts})
+    }catch(err){
+        res.status(400).json({message:"failed load followings posts"});
+    }
+      
+})
 // get followings list ofa authenticate user
 router.get('/followings',authenticateToken,async(req,res)=>{
     try{

@@ -104,15 +104,15 @@ router.get('/posts',async(req,res)=>{
     
 })
 
-router.delete('/:id/delete',authenticateToken,async(req,res)=>{
-    try{
+router.post('/:id/delete',async(req,res)=>{
+    try{ 
         const newPost= await Post.findOneAndDelete({_id:req.params.id});
-        const newuser=await User.findOneAndUpdate({_id:req.user.id},
+        const newuser=await User.findOneAndUpdate({_id:req.body.id},
             { $pull: {posts:newPost._id } },
             { new: true }
             )
     
-       res.status(201).json({message :"successful "})
+       res.status(201).json({message :"successful ",newPost})
     }catch(err){
         res.status(400).json({messege:"failed to delete",error:err.messege})
     }

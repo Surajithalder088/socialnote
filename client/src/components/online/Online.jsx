@@ -5,7 +5,7 @@ const Online = ({user}) => {
     <li className="rightbarFriend">
               <div className="rightbarProfileImgContainer">
                 <img  className="rightbarProfileImg" 
-                src={user.img?user.img:"http://res.cloudinary.com/dbxx49ers/image/upload/v1733832772/fiflwmgwpgurl02hpghs.jpg"}
+                src={user.img?user.img:"http://res.cloudinary.com/dbxx49ers/image/upload/v1734202452/lml0ghr271z4xxat9ogt.png"}
                  alt=""/>
                 <span className="rightbarOnline"></span>
               </div>

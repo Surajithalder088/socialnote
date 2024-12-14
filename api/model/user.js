@@ -9,11 +9,7 @@ const userSchema=new mongoose.Schema({
     type:String,
     default:null
    },
-    userid:{
-        type:String,
-      
-        unique:true
-    },
+    
    email:{
     type:String,
     required:true,

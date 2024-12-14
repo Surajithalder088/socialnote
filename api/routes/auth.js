@@ -10,7 +10,7 @@ const router=express.Router();
 const JWT_SECRET = '123456';
 
 router.post('/signup',async(req,res)=>{
-    const{name,userid,email,password}=req.body;
+    const{name,email,password}=req.body;
 
      try{
         const existingUser=await User.findOne({email});
@@ -18,9 +18,9 @@ router.post('/signup',async(req,res)=>{
     if(existingUser) return res.json({messege:'user already exist, go to login ',existingUser})
         
         const hashedPassword = await bcrypt.hash(password, 10);
-       const newUser=new User({name,userid,email,password :hashedPassword});
+       const newUser=new User({name,email,password :hashedPassword});
        await newUser.save()
-        let id=newUser.userid;
+        
       
 
         res.status(201).json({message :"successful "})
@@ -49,7 +49,7 @@ router.post('/login',async(req,res)=>{
     
     res.cookie('token', token, {
       httpOnly: true, // Prevents client-side access to the cookie
-      secure:false, //process.env.NODE_ENV === 'production', // Only use https in production
+      secure:true, //process.env.NODE_ENV === 'production', // Only use https in production
       sameSite:'Lax',
       maxAge: 3600000, // 1 hour
     });

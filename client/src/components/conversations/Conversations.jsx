@@ -2,6 +2,7 @@ import React, { useContext, useEffect ,useState} from 'react'
 import "./conversation.css"
 import { AuthContext } from '../../context/AuthContext'
 import axios from 'axios'
+const api=import.meta.env.VITE_API;
 
 const Conversations = ({conversation}) => {
   const [user,setUser]=useState(null)
@@ -13,7 +14,7 @@ const Conversations = ({conversation}) => {
     
     const getUser=async()=>{
       try{
-      const res=await axios.get(`http://localhost:7000/auth/api/v1/${friendId}/profile`,{withCredentials:true})
+      const res=await axios.get(`${api}/auth/api/v1/${friendId}/profile`,{withCredentials:true})
      
       setUser(res.data.user)
      console.log(user);
@@ -32,7 +33,7 @@ const Conversations = ({conversation}) => {
     
     <div className="conversation">
         <img
-         src={user?.img?user.img:"http://res.cloudinary.com/dbxx49ers/image/upload/v1733607093/mhgagojvyk3yr5stfsxx.jpg" }
+         src={user?.img?user.img:"http://res.cloudinary.com/dbxx49ers/image/upload/v1734202452/lml0ghr271z4xxat9ogt.png" }
         alt="" className="conversationImg" />
         <span className="conversationName"> {user?user.name:"name"}</span>
     </div>

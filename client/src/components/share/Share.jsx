@@ -9,7 +9,7 @@ import { useContext, useRef, useState } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import CloseIcon from '@mui/icons-material/Close';
 import {useNavigate}from'react-router-dom'
-
+const api=import.meta.env.VITE_API;
 
 const Share = () => {
     const {user}=useContext(AuthContext)
@@ -31,7 +31,7 @@ const Share = () => {
           // newPost.photo=filename;
             try{
                 setFetching(true)
-               const response= await axios.post("http://localhost:7000/post/api/v1/file",data) //uploading tocloud
+               const response= await axios.post(`${api}/post/api/v1/file`,data) //uploading tocloud
                console.log({res:response.data.url});
                
                newPost.photo=response.data.url; //setting cloud url  to database
@@ -43,7 +43,7 @@ const Share = () => {
 
         }
         try{
-           await axios.post("http://localhost:7000/post/api/v1/create",newPost,{withCredentials:true})
+           await axios.post(`${api}/post/api/v1/create`,newPost,{withCredentials:true})
            console.log('posted');
            setFetching(false)
            navigate('/')
@@ -59,7 +59,7 @@ const Share = () => {
     <div className='share'>
         <div className="shareWrapper">
             <div className="shareTop">
-                <img className='shareProfileImage' src={user.existingUser.img ||"profile.png"} alt='image'/>
+                <img className='shareProfileImage' src={user.existingUser.img ||"http://res.cloudinary.com/dbxx49ers/image/upload/v1734202452/lml0ghr271z4xxat9ogt.png"} alt='image'/>
                 <input placeholder={'What`s in your mind  '+user.existingUser.name+" ?"}
                  className='shareInput'
                  ref={description}
@@ -82,7 +82,7 @@ const Share = () => {
                         <input 
                         style={{display:"none"}}
                         type='file' id='file'
-                         accept='.png,.jpg,.jpeg'
+                         accept='.png,.jpg,.jpeg,.mp4,.MP4'
                          onChange={(e)=>{
                             setFile(e.target.files[0])
                          }}

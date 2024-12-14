@@ -18,8 +18,8 @@
     background-color: rgb(192, 186, 186);
 }
 .sidebarWrapper{
-    padding: 2rem;
-    padding-right: 3rem;
+    padding: 1.5rem;
+   
   
 }
 .sidebarList{
@@ -33,11 +33,13 @@
     margin-bottom: 3rem;
 }
 .sidebarListItemText{
-    font-size: 12px;
-    font-weight: 200;
+    font-size: 18px;
+    font-weight: 150;
 }
 .sidebarIcon{
-    margin-right: 0.8rem;
+    margin-right: 0.5rem;
+
+    
 }
 .sidebarButton{
     width: 3rem;

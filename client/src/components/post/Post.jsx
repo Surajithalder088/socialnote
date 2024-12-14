@@ -1,12 +1,12 @@
 import './post.css'
-import MoreVertIcon from '@mui/icons-material/MoreVert';
+import DeleteIcon from '@mui/icons-material/Delete';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useState,useEffect, useContext } from 'react';
 import axios from 'axios'
 import { Link } from "react-router-dom";
 import { AuthContext } from '../../context/AuthContext';
 import {format} from'timeago.js'
-
+const api=import.meta.env.VITE_API;
 
 const Post = ({post}) => {
 
@@ -16,28 +16,38 @@ const Post = ({post}) => {
     const {user:currentuser}=useContext(AuthContext)
     useEffect(()=>{
         setIsLiked(post.likes.includes(currentuser.existingUser._id))
-    },[currentuser.existingUser._id])
+         setUser(post.user)
 
-    useEffect( ()=>{
-        const fetchingUser=async()=>{
-         // const res= await axios.get(`http://localhost:7000/auth/api/v1/:id/profile`)
+    },[currentuser.existingUser._id,post.user])
 
-        setUser(post.user)
-        }
-        fetchingUser()
+ const deleteHandler=async()=>{
+    try{ let id={
+        id: currentuser.existingUser._id
+    }
+   
+          const res=await axios.post(`${api}/post/api/v1/${post._id}/delete`,id,{withCredentials:true})
+            console.log("done",res);
+            
+    }catch(err){
+        console.log(err);
         
-      },[post.user])
+    }
+  
+ }
+
+
         let res
     const likeHandler=async()=>{
        // console.log(post._id,currentuser.existingUser._id);
         
         try{
             if(isLiked!==true){
-     await axios.get(`http://localhost:7000/post/api/v1/${post._id}/like/${currentuser.existingUser._id}`,{withCredentials:true})
+     await axios.get(`${api}/post/api/v1/${post._id}/like/${currentuser.existingUser._id}`,{withCredentials:true})
+
        console.log(" liked");
        
     }else{
-        await axios.get(`http://localhost:7000/post/api/v1/${post._id}/dislike/${currentuser.existingUser._id}`,{withCredentials:true})
+        await axios.get(`${api}/post/api/v1/${post._id}/dislike/${currentuser.existingUser._id}`,{withCredentials:true})
        console.log("dis liked");
        
          
@@ -58,9 +68,9 @@ const Post = ({post}) => {
         <div className="postWrapper">
             <div className="postTop">
                 <div className="postTopLeft">
-                    <Link to= {`/profile/${user._id}`} >
+                    <Link to= {`/profile/${user._id}`} style={{textDecoration:"none",color:"black"}} >
                     <img className='postProfileImage' src={
-                        user.img || "/public/profile.png"
+                        user.img || "http://res.cloudinary.com/dbxx49ers/image/upload/v1734202452/lml0ghr271z4xxat9ogt.png"
                     }
                    
                      alt='pic'/>
@@ -70,9 +80,18 @@ const Post = ({post}) => {
                     </Link>
                     <span className="postDate">{format(post.createdAt)}</span>
                 </div>
-                <div className="postTopRight">
-                    <MoreVertIcon/>
-                </div>
+
+                    {
+                        (user._id===currentuser.existingUser._id)?(<>
+                        <div className="postTopRight"  >
+                    <DeleteIcon onClick={deleteHandler}/>
+                   
+                         </div>
+                        </>):""
+                    }
+                
+
+
             </div>
             <div className="postCenter">
                 <span className="postText">{post ?.description}</span>
@@ -80,7 +99,7 @@ const Post = ({post}) => {
             </div>
             <div className="postBottom">
                 <div className="postBottomLeft">
-                    <FavoriteIcon className='likeIcon'  onClick={likeHandler}/>
+                    <FavoriteIcon className={(isLiked)?'likeIcon':'icon'}  onClick={likeHandler}/>
                     <span className="postLikeCounter">{like}</span>
                     
                 </div>

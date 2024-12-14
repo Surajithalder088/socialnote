@@ -5,7 +5,7 @@ import { loginCall } from '../../apiCalls'
 import { AuthContext } from '../../context/AuthContext'
 import {CircularProgress }from"@mui/material"
 import {useNavigate}from'react-router-dom'
-import { redirect } from 'react-router-dom'
+import { Link, redirect } from 'react-router-dom'
 
 const Login = () => {
     const email=useRef()
@@ -40,9 +40,10 @@ const{user,isFetching,error,dispatch}=useContext(AuthContext)
                     <button className="loginButton" disabled={isFetching}>
                         {isFetching?<CircularProgress color='white' size='20px' />:"Login"}</button>
                     <span className="loginForgot">Forgot Password?</span>
+                    <Link to={'/register'}>
                     <button className="loginRegisterButton">
                     {isFetching?<CircularProgress color='white' size='20px' />:"Create new Account"}
-                    </button>
+                    </button></Link>
                 </form>
             </div>
         </div>

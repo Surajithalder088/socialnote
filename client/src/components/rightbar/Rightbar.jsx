@@ -5,7 +5,7 @@ import Online from '../online/Online'
 import './rightbar.css'
 import { AuthContext } from '../../context/AuthContext';
 import {useNavigate}from'react-router-dom'
-
+const api=import.meta.env.VITE_API;
 
 
 const Users=[{id:1,name:"raj roy",img:'6.jpg'},{id:2,name:"sarad paul",img:'2.jpg'},
@@ -13,7 +13,7 @@ const Users=[{id:1,name:"raj roy",img:'6.jpg'},{id:2,name:"sarad paul",img:'2.jp
   {id:2,name:"sarad paul",img:'2.jpg'},{id:2,name:"sarad paul",img:'2.jpg'},{id:2,name:"sarad paul",img:'2.jpg'}
 ]
 
-const Rightbar = ({userId}) => {
+const Rightbar = ({userId,people}) => {
 
   const [friends,setFriends]=useState([])
 
@@ -21,16 +21,10 @@ const Rightbar = ({userId}) => {
  const {user:currentuser }=useContext(AuthContext)
  const navigate=useNavigate()
 
-
-
-
-
-  const HomeRightbar=()=>{
-   
-    useEffect(() => {
+  useEffect(() => {
      const allUsers=async()=>{
       try{
-         const res=await axios.get("http://localhost:7000/auth/api/v1/people")
+         const res=await axios.get(`${api}/auth/api/v1/people`)
 
       setAllUser(res.data.users)
       }catch(err){
@@ -41,51 +35,12 @@ const Rightbar = ({userId}) => {
      }
      allUsers()
     }, [currentuser])
-    
-    const navigator=(id)=>{
-      navigate(`/profile/${id}`)
-    }
-    return(
-      <><div className="rightbarHome">
-        <div className="ad">
-         <div className="birthdayContainer">
-          <img className="birthdayImg" src="/public/birth.jpg" alt=""  />
-          <span className="birthdayText">Check how many of your friendshas birthday today</span>
-        </div>
-        <h4 className="rightbarTitle">Check new products</h4>
-        <img  className="rightbarAd" 
-        src="http://res.cloudinary.com/dbxx49ers/image/upload/v1733832772/fiflwmgwpgurl02hpghs.jpg"
-         alt=""  />
-         </div>
-        <h4 className="rightbarTitle">New users</h4>
-        <ul className="rightbarFriendList">
-           {allUser.map(u=>(
-            <div >
-               <Link to={`/profile/${u._id}`}>
-            <Online key={u._id} user={u}  />
-            </Link>
-            </div>
-           ))} 
-        </ul></div>
-      </>
-    )
-  }
-  const ProfileRightbar=({userId})=>{
 
-  
-   
-     
-   
 
-    useEffect(()=>{
-      //setFollowed(currentuser.existingUser.followings.includes(userId))
-      
-    },[currentuser,userId])
-
-    useEffect(()=>{
+   useEffect(()=>{
       const getFriends=async()=>{
         try{
-          const friendList=await axios.get(`http://localhost:7000/follow/api/v1/followings/${userId}`,{withCredentials:true})
+          const friendList=await axios.get(`${api}/follow/api/v1/followings/${userId}`,{withCredentials:true})
        
         setFriends(friendList.data.list)
        //  console.log(friends);
@@ -95,10 +50,59 @@ const Rightbar = ({userId}) => {
         }
       }
       getFriends()
-    },[currentuser,userId])
-    
+    },[userId])
 
-    
+
+  const HomeRightbar=()=>{
+  
+    const navigator=(id)=>{
+      navigate(`/profile/${id}`)
+    }
+    return(
+      <><div className="rightbarHome">
+
+        {
+         people?"":(<>
+         <div className="ad" >
+         <div className="birthdayContainer">
+          <img className="birthdayImg" src="http://res.cloudinary.com/dbxx49ers/image/upload/v1734202452/lml0ghr271z4xxat9ogt.png" alt=""  />
+          <span className="birthdayText">Check how many of your friendshas birthday today</span>
+        </div>
+        <h4 className="rightbarTitle">Check new products</h4>
+        <img  className="rightbarAd" 
+        src="http://res.cloudinary.com/dbxx49ers/image/upload/v1733832772/fiflwmgwpgurl02hpghs.jpg"
+         alt=""  />
+         </div>
+         </>)
+        }
+        
+
+
+        <h4 className="rightbarTitle">New users</h4>
+        <ul className="rightbarFriendList">
+           {allUser.map(u=>(
+            <div className='people' >
+               <Link to={`/profile/${u._id}`}  style={{textDecoration:"none",color:"black"}}>
+            <Online key={u._id} user={u}  />
+            {
+              people?(<div className='people'>
+         
+              <spam className="peopleAboute">followers :{u.followers.length}</spam>
+              <spam className="peopleAboute">followings :{u.followers.length}</spam>
+               
+              <spam className="peopleAboute"> Total posts :{u.post.length}</spam>
+              </div>):""
+            }
+            </Link>
+            </div>
+           ))} 
+        </ul></div>
+      </>
+    )
+  }
+  const ProfileRightbar=({userId})=>{
+
+
     return(
       <>
      
@@ -125,7 +129,7 @@ const Rightbar = ({userId}) => {
       <div className="rigthbarFollowings">
        
         {friends.map(friend=>(
-          
+          <Link to={`/profile/${friend._id}`}  style={{textDecoration:"none",color:"black"}}>
         <div className="rightbarFollowing"  style={{cursor:'pointer'}} onClick={()=>{console.log('link click')}}>
           
           <img src={friend?.img?friend.img:"/public/profile.png"}
@@ -133,14 +137,14 @@ const Rightbar = ({userId}) => {
           <span className="rightbarFollowingName">{friend.name}</span>
           <span className="rightbarFollowingName">{friend.email}</span>
        
-        </div>
+        </div></Link>
       ))}
       </div>
       </>
     )
   }
   return (
-    <div className='rightbar'>
+    <div className='rightbar' >
       <div className="rightbarWrapper">
         {userId?<ProfileRightbar userId={userId}/> :<HomeRightbar/>}
       </div>

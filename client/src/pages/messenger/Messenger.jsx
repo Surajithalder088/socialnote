@@ -8,7 +8,7 @@ import Conversations from '../../components/conversations/Conversations'
 import Message from '../../components/message/Message'
 import ChatOnline from '../../components/chatOnline/ChatOnline'
 import { AuthContext } from '../../context/AuthContext'
-
+const api=import.meta.env.VITE_API;
 
 const Messenger = () => {
 
@@ -49,7 +49,7 @@ useEffect(()=>{
 // setting this function  also outside useeffect so that after submit new message it could be called
 const getMessages=async()=>{
   try{
-  const res=await axios.get(`http://localhost:7000/message/api/v1/${currentChat?._id}`)
+  const res=await axios.get(`${api}/message/api/v1/${currentChat?._id}`)
   
     setMessages(res.data)
       console.log(res.data);
@@ -62,7 +62,7 @@ const getMessages=async()=>{
 useEffect(() => {
   const getMessages=async()=>{
     try{
-    const res=await axios.get(`http://localhost:7000/message/api/v1/${currentChat?._id}`)
+    const res=await axios.get(`${api}/message/api/v1/${currentChat?._id}`)
     
       setMessages(res.data)
         console.log(res.data);
@@ -86,7 +86,7 @@ const handleSubmit=async(e)=>{
     if(message.text===""){
       return
     }
-    const res=await axios.post(`http://localhost:7000/message/api/v1/`,message)
+    const res=await axios.post(`${api}/message/api/v1/`,message)
      
     console.log(res.data);
     setCurrentChat(currentChat)

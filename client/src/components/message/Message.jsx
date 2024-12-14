@@ -8,12 +8,12 @@ const Message = ({message,own}) => {
         <div className="messageTop">
           {(own===true)?<>
           <p className="messageText">{message.text}</p>
-            <img src="http://res.cloudinary.com/dbxx49ers/image/upload/v1733607093/mhgagojvyk3yr5stfsxx.jpg" 
+            <img src="http://res.cloudinary.com/dbxx49ers/image/upload/v1734202452/lml0ghr271z4xxat9ogt.png" 
             alt="" className="messageImg" />
             </>
             :<>
 
-            <img src="http://res.cloudinary.com/dbxx49ers/image/upload/v1733607093/mhgagojvyk3yr5stfsxx.jpg" 
+            <img src="http://res.cloudinary.com/dbxx49ers/image/upload/v1734202452/lml0ghr271z4xxat9ogt.png" 
               alt="" className="messageImg" />
               <p className="messageText">{message.text}</p>
               </>

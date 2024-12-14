@@ -1,10 +1,13 @@
 .rightbar{
-    flex: 3.5;
+    flex: 2.5;
+    position: relative;
+  
+  
    
 }
 .rightbarHome{
     position: fixed;
-    min-width: 400px;
+   width: 300px;
     overflow-y: scroll;
     padding-right: 10px;
     margin: 0;
@@ -124,6 +127,22 @@
     width: 100px;
     object-fit: cover;
     border-radius: 8px;
+}
+
+.peopleAboute{
+ margin: 10px  0px;
+ padding: 0 0px;
+ font-size: 20px;
+}
+.people{
+    display: flex;
+   
+    flex-direction: column;
+  background-color: #c5e3f1;
+  margin: 10px;
+  padding: 20px;
+  border-radius: 10px;
+ 
 }
 
 

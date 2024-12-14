@@ -7,7 +7,7 @@ import GroupsIcon from '@mui/icons-material/Groups';
 import PersonIcon from '@mui/icons-material/Person';
 import CloseFriend from '../closeFriend/CloseFriend';
 import {Link} from 'react-router-dom'
-
+const api=import.meta.env.VITE_API;
 
 const Users=[{id:1,name:"raj roy",img:'6.jpg'},{id:2,name:"sarad paul",img:'2.jpg'},{id:2,name:"sarad paul",img:'2.jpg'},
   {id:2,name:"sarad paul",img:'2.jpg'},{id:2,name:"sarad paul",img:'2.jpg'},{id:2,name:"sarad paul",img:'2.jpg'},{id:2,name:"sarad paul",img:'2.jpg'}
@@ -18,20 +18,26 @@ const Sidebar = () => {
     <div className='sidebar'>
       <div className="sidebarWrapper">
        <ul className="sidebarList">
+       <Link to={'/'} style={{textDecoration:'none',color:"black"}} >
         <li className="sidebarListItem">
           <RssFeed className='sidebarIcon'/>
           <span className="sidebarListItemText">Feed</span>
         </li>
-        
+        </Link>
+        <Link to={'/peoples'} style={{textDecoration:'none',color:"black"}} >
         <li className="sidebarListItem">
           <PersonIcon className='sidebarIcon'/>
           <span className="sidebarListItemText">Peoples</span>
         </li>
+        </Link>
+        <Link to={'/videos'} style={{textDecoration:'none',color:"black"}} >
         <li className="sidebarListItem">
           <SlideshowIcon className='sidebarIcon'/>
           <span className="sidebarListItemText">Videos</span>
         </li>
-        <Link to={'/messenger'} style={{textDecoration:'none'}} >
+        </Link>
+
+        <Link to={'/messenger'} style={{textDecoration:'none',color:"black"}} >
         <li className="sidebarListItem">
           <MessageIcon className='sidebarIcon'/>
           <span className="sidebarListItemText">Messages</span>
