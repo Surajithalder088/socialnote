@@ -2,7 +2,7 @@ import React from 'react'
 import Topbar from '../../components/topbar/Topbar'
 import Sidebar from '../../components/sidebar/Sidebar'
 
-import Rightbar from '../../components/rightbar/rightbar'
+import Rightbar from '../../components/rightbar/rightbar';
 import './people.css'
 
 const people = () => {
@@ -14,7 +14,7 @@ const people = () => {
       <Sidebar/>
      
       <Rightbar people={1}/>
-      <Rightbar people={1}/>
+      
     </div>
     
  </>
