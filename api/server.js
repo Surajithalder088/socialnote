@@ -169,9 +169,11 @@ const dbConnect=async()=>{
     }).catch((err)=>{console.log(`Failed to connect database : ${err}`)})
 }
 
-server.listen(7000,()=>{
+const port=process.env.PORT || 7000;
+
+server.listen(port,()=>{
   
-    console.log('running on 7000');
+    console.log('running on '+port);
       dbConnect();
 })
 

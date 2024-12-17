@@ -11,7 +11,7 @@ const videos = () => {
     <div className="homeContainer">
       <Sidebar/>
       <Feed video={1}/>
-      <Rightbar/>
+      <Rightbar people={1}/>
     </div>
     
  </>

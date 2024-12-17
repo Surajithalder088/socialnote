@@ -86,6 +86,7 @@ const Rightbar = ({userId,people}) => {
             <Online key={u._id} user={u}  />
             {
               people?(<div className='people'>
+                <spam className="peopleAboute">email:{u.email}</spam>
          
               <spam className="peopleAboute">followers :{u.followers.length}</spam>
               <spam className="peopleAboute">followings :{u.followers.length}</spam>

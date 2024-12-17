@@ -13,16 +13,16 @@ const Register= () => {
     const navigate=useNavigate()
     const handleClick=async(e)=>{
         e.preventDefault()
-        if(passwordAgain.current.value!==password.current.value){
+      /*  if(passwordAgain.current.value!==password.current.value){
             passwordAgain.current.setCustomValidity("Passwords don't match")
-        }else{
+        }else{ */
             const user={
                 name:name.current.value,
                 email:email.current.value,
                 password:password.current.value,
             }
             try{
-                const res=await axios.post(`${api}/auth/api/v1/signup`,user,{withCredentials:true})
+                const res=await axios.post(`${api}/auth/api/v1/signup`,user)
 
                 console.log(res);
                 if(res){
@@ -34,7 +34,7 @@ const Register= () => {
             console.log(error);
             }
             
-        }
+        
     }
   return (
     <div className='login'>

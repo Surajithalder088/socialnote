@@ -6,7 +6,7 @@ import Profile from './pages/profile/Profile'
 import Login from './pages/login/Login'
 import Register from './pages/register/Register'
 import People from  './pages/peoples/people'
-import Video from './pages/videos/videos'
+import Videos from './pages/videos/videos'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthContext } from './context/AuthContext'
 import Messenger from './pages/messenger/Messenger'
@@ -31,7 +31,7 @@ console.log(api);
       <Route  path='/messenger' element={user?<Messenger/>:<Login/>}/>
       <Route path={`/profile`} element={user?<Profile userId={id} />:<Login/>}/>
       <Route exact path='/peoples' element={user?<People/>:<Login/>}/>
-      <Route exact path='/videos' element={user?<Video/>:<Login/>}/>
+      <Route exact path='/videos' element={user?<Videos/>:<Login/>}/>
     </Routes>
    </BrowserRouter>
   )
