@@ -5,7 +5,9 @@ import Sidebar from '../../components/sidebar/Sidebar'
 import Rightbar from '../../components/rightbar/rightbar';
 import './people.css'
 
-const people = () => {
+const People = () => {
+
+  let people=1;
   return (
     <>
  
@@ -13,7 +15,7 @@ const people = () => {
     <div className="homeContainer">
       <Sidebar/>
      
-      <Rightbar people={1}/>
+      <Rightbar people={people}/>
       
     </div>
     
@@ -21,4 +23,4 @@ const people = () => {
   )
 }
 
-export default people
+export default People
