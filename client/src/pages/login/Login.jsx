@@ -15,14 +15,20 @@ const{user,isFetching,error,dispatch}=useContext(AuthContext)
 
     const handleClick=async(e)=>{
         e.preventDefault()
-        
-        
-        const r=await loginCall({email:email.current.value,password:password.current.value},dispatch)  // thid dispatch is comming from  AuthContext
+        try{
+           const r=await loginCall({email:email.current.value,password:password.current.value},dispatch)  // thid dispatch is comming from  AuthContext
         if(r){
-            console.log(user);
+            console.log(r);
            navigate('/')
        
+        } 
+        }catch(error){
+            alert("Invalid credentials")
+            console.log(error);
+            
         }
+        
+        
      }
   return (
     <div className='login'>
