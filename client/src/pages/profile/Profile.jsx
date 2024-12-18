@@ -3,7 +3,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import Topbar from '../../components/topbar/Topbar'
 import Sidebar from '../../components/sidebar/Sidebar'
 import Feed from '../../components/feed/Feed'
-import Rightbar from '../../components/rightbar/rightbar'
+import Rightbar from '../../components/rightbar/Rightbar'
 import { useState,useEffect, useContext } from 'react';
 import axios from 'axios'
 import {useParams} from 'react-router'
