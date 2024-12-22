@@ -1,7 +1,7 @@
 import './post.css'
 import DeleteIcon from '@mui/icons-material/Delete';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import { useState,useEffect, useContext } from 'react';
+import { useState,useEffect, useContext, useRef } from 'react';
 import axios from 'axios'
 import { Link } from "react-router-dom";
 import { AuthContext } from '../../context/AuthContext';
@@ -14,6 +14,9 @@ const Post = ({post}) => {
     const [isLiked,setIsLiked]=useState(false)
     const [user,setUser]=useState({})
     const {user:currentuser}=useContext(AuthContext)
+    const [isMuted,setIsMuted]=useState(true)
+    const [isPlaying,setIsPlaying]=useState(true)
+    const videoRef=useRef(null)
     useEffect(()=>{
         setIsLiked(post.likes.includes(currentuser.existingUser._id))
          setUser(post.user)
@@ -62,6 +65,15 @@ const Post = ({post}) => {
         setIsLiked(isLiked?false : true)
         if(isLiked){}
     }
+
+    const toggleMute=()=>{
+        console.log("type mute button");
+         isMuted?setIsMuted(false): setIsMuted(true)
+        if(videoRef.current){
+            isMuted?setIsMuted(false): setIsMuted(true)
+            
+        }
+    }
     
   return (
     <div className='post'>
@@ -95,7 +107,20 @@ const Post = ({post}) => {
             </div>
             <div className="postCenter">
                 <span className="postText">{post ?.description}</span>
-                <img  className='postImg' src={post?.photo} alt=''/>
+                {post.photo &&(
+                    (post.photo.endsWith(".mp4"))?(
+                        <>
+                        <video   className='postImg' width="640" height="360"  autoPlay muted={isMuted} ><source src={post.photo}/></video>
+                        <br/>
+                        <button onClick={toggleMute}>
+                            {isMuted ?"Unmute":"Mute"}
+                            </button>
+                            </>
+                    ):(
+                        <img  className='postImg' src={post?.photo} alt=''/>
+                    )
+                )}
+                
             </div>
             <div className="postBottom">
                 <div className="postBottomLeft">

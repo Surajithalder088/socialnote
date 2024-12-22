@@ -26,18 +26,23 @@ const Share = () => {
         if(file!==null){
             const data=new FormData();
             const filename=file.name;
+             data.append('name',filename);
             data.append('file',file);
-            data.append('name',filename);
+
+           
           // newPost.photo=filename;
+
             try{
                 setFetching(true)
+                console.log(data.get('file'));
+                
                const response= await axios.post(`${api}/post/api/v1/file`,data) //uploading tocloud
-               console.log({res:response.data.url});
+               console.log({m:"no cloud problem",res:response.data.url});
                
                newPost.photo=response.data.url; //setting cloud url  to database
               
             }catch(err){
-                console.log(" failed to get file",err);
+                console.log(" failed to get file from cloud",err);
                 
         }
 
@@ -82,7 +87,7 @@ const Share = () => {
                         <input 
                         style={{display:"none"}}
                         type='file' id='file'
-                         accept='.png,.jpg,.jpeg,.mp4,.MP4'
+                         accept='.png,.jpg,.jpeg,.mp4'
                          onChange={(e)=>{
                             setFile(e.target.files[0])
                          }}
