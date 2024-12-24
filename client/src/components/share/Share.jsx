@@ -36,7 +36,11 @@ const Share = () => {
                 setFetching(true)
                 console.log(data.get('file'));
                 
-               const response= await axios.post(`${api}/post/api/v1/file`,data.get('file')) //uploading tocloud
+               const response= await axios.post(`${api}/post/api/v1/file`,data, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }) //uploading tocloud
                console.log({m:"no cloud problem",res:response.data.url});
                
                newPost.photo=response.data.url; //setting cloud url  to database

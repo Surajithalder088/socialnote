@@ -19,7 +19,9 @@ router.post("/file",upload.single('file'),async(req,res)=>{
     if(!localfile){
         return res.status(400).json('failed to upload on server')
        }
+       console.log("uploading to cloud",localfile);
     const response= await uploadOnCloudinary(localfile)
+    console.log("uploading to cloud",response);
     
       res.status(200).json(response)
     }catch(error){
