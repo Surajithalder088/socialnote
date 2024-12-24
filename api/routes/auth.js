@@ -50,7 +50,7 @@ router.post('/login',async(req,res)=>{
     res.cookie('token', token, {
       httpOnly: true, // Prevents client-side access to the cookie
       secure:true, //process.env.NODE_ENV === 'production', // Only use https in production
-      sameSite:'Lax',
+      
       maxAge: 3600000, // 1 hour
     });
 
