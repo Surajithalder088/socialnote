@@ -28,6 +28,13 @@
 .loginDesc{
     font-size: 25px;
 }
+.logindemo{
+    color: red;
+    font-weight: 500;
+    padding: 0.3rem;
+    background-color: black;
+    border-radius: 6px;
+}
 .loginBox{
     height: 300px;
     padding: 20px;

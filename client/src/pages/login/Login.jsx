@@ -38,6 +38,9 @@ const{user,isFetching,error,dispatch}=useContext(AuthContext)
                 <span className="loginDesc">
                     Connect with friends and the world around you on Socialnote.
                 </span>
+                <span className="logindemo">
+                    Use demo-user for testing : <br></br>email= peacock@gmail.com ,password=password
+                </span>
             </div>
             <div className="loginRight">
                 <form className="loginBox" onSubmit={handleClick}>
