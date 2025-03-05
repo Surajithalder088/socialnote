@@ -29,6 +29,7 @@ const Share = () => {
              data.append('name',filename);
             data.append('file',file);
 
+         
            
           // newPost.photo=filename;
 
@@ -41,6 +42,7 @@ const Share = () => {
                     'Content-Type': 'multipart/form-data'
                 }
             }) //uploading tocloud
+
                console.log({m:"no cloud problem",res:response.data.url});
                
                newPost.photo=response.data.url; //setting cloud url  to database
@@ -61,6 +63,7 @@ const Share = () => {
            
         }catch(error){
             console.log("failed to posted",error);
+            setFetching(false)
             
         }
     }
